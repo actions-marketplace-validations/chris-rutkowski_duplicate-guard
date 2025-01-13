@@ -38,7 +38,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  filesize_guard:
+  duplicate_guard:
     runs-on: ubuntu-latest
     steps:
       - name: Duplicate Guard
@@ -55,9 +55,9 @@ If your `duplicate_guard.ignore` file is not in the root directory, specify its 
 ```yaml
 steps:
   - name: Duplicate Guard
-    uses: chris-rutkowski/filesize-guard@v1.0.1
+    uses: chris-rutkowski/duplicate-guard@v1.0.1
       with:
-        ignore_file: ./my/path/my_filesize_guard.ignore
+        ignore_file: ./my/path/my_duplicate_guard.ignore
 ```
 
 ---
