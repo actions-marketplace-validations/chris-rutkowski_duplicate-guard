@@ -14,7 +14,26 @@
 
 ## 🛠️ Usage
 
-### 1. **Create an Ignore File**
+### 1. **Add the GitHub Action**
+Create a GitHub Actions workflow in `.github/workflows/duplicate_guard.yml`:
+
+```yaml
+name: Duplicate Guard
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  duplicate_guard:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Duplicate Guard
+        uses: chris-rutkowski/duplicate-guard@v1.0.2
+```
+
+### 2. **Create an ignore file** (optional)
 Add a `duplicate_guard.ignore` file to the root of your repository to define patterns for files or directories to exclude from duplicate checks. The syntax follows `.gitignore` conventions.
 
 **Example `duplicate_guard.ignore`:**
@@ -26,36 +45,29 @@ logs/*
 
 ---
 
-### 2. **Add the GitHub Action**
-Create a GitHub Actions workflow in `.github/workflows/duplicate_guard.yml`:
+## ♻️ Find existing duplicates
+
+Run the action manually using the `workflow_dispatch` event to scan and find duplicates in your repository.
 
 ```yaml
 name: Duplicate Guard
 on:
-  pull_request:
-    branches:
-      - master
   workflow_dispatch:
+  pull_request:
 
-jobs:
-  duplicate_guard:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Duplicate Guard
-        uses: chris-rutkowski/duplicate-guard@v1.0.1
+...
 ```
 
 ---
 
 ## ⚙️ Configuration
 
-### **Specify a Custom Ignore File Path**
-If your `duplicate_guard.ignore` file is not in the root directory, specify its location using the `ignore_file` input:
+### **Specify a custom ignore file path**
 
 ```yaml
 steps:
   - name: Duplicate Guard
-    uses: chris-rutkowski/duplicate-guard@v1.0.1
+    uses: chris-rutkowski/duplicate-guard@v1.0.2
       with:
         ignore_file: ./my/path/my_duplicate_guard.ignore
 ```
